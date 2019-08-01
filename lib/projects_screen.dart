@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:layout_practice/clients_screen.dart';
-import 'package:layout_practice/contact_home_screen.dart';
 
+import 'package:layout_practice/contact_home_screen.dart';
 import 'package:layout_practice/lzm_screen.dart';
 import 'package:layout_practice/savjazzfest_screen.dart';
 import 'package:layout_practice/welcome_screen.dart';
 
 class Projects extends StatefulWidget {
+
   @override
   State<StatefulWidget> createState() {
     return _ProjectsState();
@@ -18,33 +18,7 @@ class _ProjectsState extends State<Projects> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        semanticLabel: 'Navigation',
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.blueGrey[500],
-                ),
-                color: Color(0xFF0D47A1),
-              ),
-              child: Container(
-                child: Row(children: [
-                  CircleAvatar(),
-                ]),
-              ),
-            ),
-            _navRouteBuilder(context, Icons.home, 'Home', Welcome()),
-            _navRouteBuilder(
-                context, Icons.library_music, 'Projects', Projects()),
-            _navRouteBuilder(
-                context, Icons.recent_actors, 'Clients', Clients()),
-            _navRouteBuilder(context, Icons.contacts, 'Contact', Contact())
-          ],
-        ),
-      ),
+      drawer: AppDrawer(),
       appBar: AppBar(
         title: Text(
           "Projects",
@@ -82,22 +56,6 @@ class _ProjectsState extends State<Projects> {
           foregroundColor: Colors.red[50],
           backgroundColor: Colors.blue[900],
         ),
-      ),
-    );
-  }
-
-  InkWell _navRouteBuilder(
-      BuildContext context, IconData _icon, String _title, Widget _screen) {
-    return InkWell(
-      splashColor: Colors.blue,
-      onTap: () {
-        Navigator.of(context).pop();
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (BuildContext context) => _screen));
-      },
-      child: ListTile(
-        leading: Icon(_icon, color: Colors.red[50]),
-        title: Text(_title, style: TextStyle(color: Colors.red[50])),
       ),
     );
   }

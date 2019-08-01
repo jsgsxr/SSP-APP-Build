@@ -1,4 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'dart:async';
+import 'package:url_launcher/url_launcher.dart';
+
+import 'package:layout_practice/Services/contact.dart';
+
+DateTime convertToDate(String input) {
+  try {
+    var d = new DateFormat.yMd().parseStrict(input);
+    return d;
+  } catch (e) {
+    return null;
+  }
+}
+
+bool isValidDob(String dob) {
+  if (dob.isEmpty) return true;
+  var d = convertToDate(dob);
+  return d != null && d.isAfter(new DateTime.now());
+}
 
 class ContactForm extends StatefulWidget {
   @override
@@ -6,7 +26,31 @@ class ContactForm extends StatefulWidget {
 }
 
 class _ContactFormState extends State<ContactForm> {
-  final _formKey = GlobalKey();
+  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final TextEditingController dateController = new TextEditingController();
+  final TextEditingController nameController = new TextEditingController();
+  final TextEditingController emailController = new TextEditingController();
+  final TextEditingController phoneController = new TextEditingController();
+  final TextEditingController companyController = new TextEditingController();
+  final TextEditingController positionController = new TextEditingController();
+  final TextEditingController messageController = new TextEditingController();
+
+  Future _chooseDate(BuildContext context, DateTime date) async {
+    var result = await showDatePicker(
+        context: context,
+        initialDate: date,
+        firstDate: date,
+        lastDate: new DateTime(2050));
+
+    if (result == null) return;
+
+    setState(() {
+      dateController.text = new DateFormat.yMd().format(result);
+    });
+  }
+
+  ContactData newContact = new ContactData();
   List<String> _positions = [
     'Owner/Operator',
     'Promoter',
@@ -21,16 +65,19 @@ class _ContactFormState extends State<ContactForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       body: Container(
         child: Builder(
           builder: (context) => Form(
+            autovalidate: true,
             key: _formKey,
             child: ListView(
               children: <Widget>[
-                new TextFieldInput(Icons.assignment_ind, 'Name', 'First Last'),
-                TextFieldInput(Icons.email, 'Email', 'name@email.com'),
+                new TextFieldInput(Icons.assignment_ind, 'Name', 'First Last', nameController),
+                TextFieldInput(Icons.email, 'Email', 'name@email.com', emailController),
+                TextFieldInput(Icons.phone, 'Phone', '555-555-5555', phoneController),
                 TextFieldInput(
-                    Icons.domain, 'Company', 'Company Name(if applicable)'),
+                    Icons.domain, 'Company', 'Company Name(if applicable)', companyController),
                 Container(
                     color: Colors.blueGrey[900],
                     child: ListTile(
@@ -40,11 +87,11 @@ class _ContactFormState extends State<ContactForm> {
                         child: Icon(Icons.device_hub, color: Colors.white),
                       ),
                       title: DropdownButton(
-                        style: TextStyle(color: Colors.red[50],
-                        backgroundColor: Colors.blueGrey[900]),
-                        hint: Text(
-                          'Your Company Position',
-                          style: TextStyle(color: Colors.red[50])),
+                        style: TextStyle(
+                            color: Colors.red[50],
+                            backgroundColor: Colors.blueGrey[900]),
+                        hint: Text('Your Company Position',
+                            style: TextStyle(color: Colors.red[50])),
                         value: _selectedPosition,
                         onChanged: (newValue) {
                           setState(() {
@@ -58,13 +105,127 @@ class _ContactFormState extends State<ContactForm> {
                           );
                         }).toList(),
                       ),
-                    ))
+                    )),
+                Container(
+                  color: Colors.blueGrey[900],
+                  child: new Row(children: <Widget>[
+                    new Expanded(
+                        child: Padding(
+                      padding: const EdgeInsets.only(left: 24.0),
+                      child: new TextFormField(
+                        style: TextStyle(color: Colors.red[50]),
+                        decoration: new InputDecoration(
+                          fillColor: Colors.blueGrey[800],
+                          filled: true,
+                          icon: Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: const Icon(
+                              Icons.calendar_today,
+                              color: Colors.white,
+                            ),
+                          ),
+                          hintText: 'Your Projected Event Date',
+                          hintStyle: TextStyle(color: Colors.red[50]),
+                          labelText: 'Event Date',
+                          labelStyle: TextStyle(color: Colors.red[50]),
+                        ),
+                        controller: dateController,
+                        keyboardType: TextInputType.datetime,
+                        validator: (val) =>
+                            isValidDob(val) ? null : 'Not a valid date',
+                      ),
+                    )),
+                    new IconButton(
+                      icon: new Icon(Icons.more_horiz,
+                      color: Colors.red[50],),
+                      tooltip: 'Choose date',
+                      onPressed: (() {
+                        _chooseDate(context, DateTime.now());
+                      }),
+                    )
+                  ]),
+                ),
+                Container(
+                  color: Colors.blueGrey[900],
+                  child: ListTile(
+                    leading: Container(
+                      width: 40,
+                      alignment: Alignment.center,
+                      child: Icon(Icons.assignment, color: Colors.white),
+                    ),
+                    title: Container(
+                      margin: EdgeInsets.zero,
+                      child: new TextField(
+                        controller: messageController,
+                        maxLines: 5,
+                        style: TextStyle(
+                          color: Colors.red[50],
+                        ),
+                        decoration: InputDecoration(
+                          focusColor: Colors.red,
+                          filled: true,
+                          fillColor: Colors.blueGrey[800],
+                          labelText: 'Your Message',
+                          labelStyle: TextStyle(
+                            color: Colors.red[50],
+                          ),
+                          hintText: 'Enter your message to us here!',
+                          hintStyle: TextStyle(
+                            color: Colors.red[50],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  padding:
+                      const EdgeInsets.only(top: 10.0, left: 120, right: 120, bottom: 10),
+                  child: RaisedButton.icon(
+                    icon: Icon(Icons.alternate_email),
+                    label: Text('Send!'),
+                    elevation: 5,
+                    color: Colors.blue[900],
+                    splashColor: Colors.cyan[900],
+                    textColor: Colors.red[50],
+                    onPressed: _submitForm,
+                  ),
+                ),
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  void showMessage(String message, [MaterialColor color = Colors.red]) {
+    _scaffoldKey.currentState.showSnackBar(
+        new SnackBar(backgroundColor: color, content: new Text(message)));
+  }
+
+  void _submitForm() {
+    final FormState form = _formKey.currentState;
+    String body = nameController.text + emailController.text + phoneController.text + companyController.text + positionController.text + dateController.text + messageController.text;
+
+    if (!form.validate()) {
+      showMessage('Form is not valid!  Please review and correct.');
+    } else {
+      showMessage('Thanks! We will contact you shortly!');
+      form.save();
+      _launchURL('jsgsxr@me.com', 'You have a new customer!', body);
+
+      print('Form save called, newContact is now up to date...');
+    }
+  }
+
+  _launchURL(String email, String subject, String body) async {
+    var url = 'mailto:$email?subject=$subject&body=$body';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
 
@@ -73,11 +234,13 @@ class TextFieldInput extends StatelessWidget {
     this.iconInput,
     this.title,
     this.hint,
+    this._newController
   );
 
   final IconData iconInput;
   final String title;
   final String hint;
+  final TextEditingController _newController;
 
   @override
   Widget build(BuildContext context) {
@@ -89,13 +252,21 @@ class TextFieldInput extends StatelessWidget {
           alignment: Alignment.center,
           child: Icon(iconInput, color: Colors.white),
         ),
-        title: new TextField(
+        title: new TextFormField(
+          validator: (value) {
+            if (value.isEmpty) {
+              return 'Please Fill Every Field!';
+            }
+            return null;
+          },
+          controller: _newController,
           style: TextStyle(
             color: Colors.red[50],
           ),
           decoration: InputDecoration(
             focusColor: Colors.red,
-            fillColor: Colors.red[50],
+            filled: true,
+            fillColor: Colors.blueGrey[800],
             labelText: title,
             labelStyle: TextStyle(
               color: Colors.red[50],

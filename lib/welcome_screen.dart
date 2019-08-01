@@ -15,38 +15,13 @@ class _HomeState extends State<Welcome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        semanticLabel: 'Navigation',
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.blueGrey[500],
-                ),
-                color: Color(0xFF0D47A1),
-              ),
-              child: Container(
-                child: Row(children: [
-                  CircleAvatar(),
-                ]),
-              ),
-            ),
-            _navRouteBuilder(context, Icons.home, 'Home', Welcome()),
-            _navRouteBuilder(
-                context, Icons.library_music, 'Projects', Projects()),
-            _navRouteBuilder(
-                context, Icons.recent_actors, 'Clients', Clients()),
-            _navRouteBuilder(context, Icons.contacts, 'Contact', Contact())
-          ],
-        ),
-      ),
+      drawer: new AppDrawer(),
       appBar: AppBar(
         backgroundColor: Colors.blue[900],
         title: Text(
           "SilverSmith Productions",
-          style: TextStyle(fontFamily: 'Permanent Marker'),
+          style: TextStyle(fontFamily: 'Permanent Marker',
+          fontSize: 15),
         ),
       ),
       body: ListView(children: [
@@ -80,6 +55,58 @@ class _HomeState extends State<Welcome> {
           foregroundColor: Colors.red[50],
           backgroundColor: Colors.blue[900],
         ),
+      ),
+    );
+  }
+}
+
+class AppDrawer extends StatelessWidget {
+ 
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      semanticLabel: 'Navigation',
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          DrawerHeader(
+            margin: EdgeInsets.zero,
+            padding: EdgeInsets.zero,
+            decoration: BoxDecoration(
+              image: DecorationImage(fit: BoxFit.fill,
+              image: AssetImage('images/studioboard.jpg')),
+              border: Border.all(
+                color: Colors.blueGrey[500],
+              ),
+              color: Color(0xFF0D47A1),
+            ),
+            child: Stack(children: <Widget>[
+              Positioned(
+                bottom: 2,
+                right: 10,
+                child: Row(
+                  children: [
+                Text('SilverSmith Productions',
+                style: TextStyle(
+                color: Colors.white,
+                fontFamily: 'Permanent Marker',
+                fontSize: 20,
+                ),
+                ),
+              ]),
+              ),
+            ]),
+          ),
+          _navRouteBuilder(context, Icons.home, 'Home', Welcome()),
+          Divider(
+            color: Colors.red[50],
+          ),
+          _navRouteBuilder(
+              context, Icons.library_music, 'Projects', Projects()),
+          _navRouteBuilder(
+              context, Icons.recent_actors, 'Clients', Clients()),
+          _navRouteBuilder(context, Icons.contacts, 'Contact', Contact())
+        ],
       ),
     );
   }
