@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:layout_practice/Services/map_screen.dart';
 
 import 'package:layout_practice/clients_screen.dart';
 import 'package:layout_practice/contact_home_screen.dart';
@@ -105,7 +106,12 @@ class AppDrawer extends StatelessWidget {
               context, Icons.library_music, 'Projects', Projects()),
           _navRouteBuilder(
               context, Icons.recent_actors, 'Clients', Clients()),
-          _navRouteBuilder(context, Icons.contacts, 'Contact', Contact())
+          _navRouteBuilder(context, Icons.contacts, 'Contact', Contact()),
+          Divider(
+            color: Colors.red[50],
+          ),
+          _navRouteBuilder(context, Icons.navigation, 
+          'Location', MapScreen()),
         ],
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:layout_practice/Services/map_screen.dart';
 class AboutUs extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -45,9 +46,25 @@ class _HomeState extends State<AboutUs> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildButtonColumn(color, Icons.call, 'CALL'),
-          _buildButtonColumn(color, Icons.near_me, 'ROUTE'),
-          _buildButtonColumn(color, Icons.share, 'SHARE'),
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              splashColor: Colors.blue,
+              child: _buildButtonColumn(color, Icons.call, 'CALL'))),
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (BuildContext context) => MapScreen()));
+          },
+              splashColor: Colors.blue,
+              child: _buildButtonColumn(color, Icons.near_me, 'ROUTE'))),
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              splashColor: Colors.blue,
+              child: _buildButtonColumn(color, Icons.share, 'SHARE'))),
         ],
       ),
       color: Colors.grey[850],
