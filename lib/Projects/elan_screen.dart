@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:layout_practice/welcome_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-import 'package:layout_practice/Services/map_screen.dart';
-class AboutUs extends StatefulWidget {
+class ElanInfo extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return _HomeState();
   }
 }
 
-class _HomeState extends State<AboutUs> {
+class _HomeState extends State<ElanInfo> {
   @override
   Widget build(BuildContext context) {
     Widget titleSection = Container(
@@ -22,7 +23,7 @@ class _HomeState extends State<AboutUs> {
                 Container(
                   padding: const EdgeInsets.only(bottom: 8),
                   child: Text(
-                    'SilverSmith Productions',
+                    'Elan Savannah',
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Colors.blue[300]),
                   ),
@@ -49,22 +50,18 @@ class _HomeState extends State<AboutUs> {
           Material(
             color: Colors.transparent,
             child: InkWell(
-              splashColor: Colors.blue,
-              child: _buildButtonColumn(color, Icons.call, 'CALL'))),
+                splashColor: Colors.blueAccent,
+                onTap: () {},
+                child: _buildButtonColumn(color, Icons.language, 'VISIT')),
+          ),
           Material(
             color: Colors.transparent,
             child: InkWell(
-              onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => MapScreen()));
-          },
-              splashColor: Colors.blue,
-              child: _buildButtonColumn(color, Icons.near_me, 'ROUTE'))),
-          Material(
-            color: Colors.transparent,
-            child: InkWell(
-              splashColor: Colors.blue,
-              child: _buildButtonColumn(color, Icons.share, 'SHARE'))),
+                splashColor: Colors.blueAccent,
+                onTap: () {},
+                child: _buildButtonColumn(color, Icons.map, 'MAP')),
+          ),
+          _buildButtonColumn(color, Icons.share, 'SHARE'),
         ],
       ),
       color: Colors.grey[850],
@@ -73,7 +70,7 @@ class _HomeState extends State<AboutUs> {
     Widget textSection = Container(
       padding: const EdgeInsets.all(32),
       child: Text(
-        'SilverSmith Productions is a homegrown, experienced group based out of historic Savannah, Georgia. Started by a Savannah native, they have strived to bring the magic of production, be it lights, sound, or creative video, to all who wish to be creative, but need that extra push. With a love for the industry, and a love for artistry of all types, no challenge is too great for their expertise.',
+        'Savannah\'s only Superlounge and EDM venue, with ground breaking technology, and consistently excellent service. From legends like Lil Jon, Waka Flocka, Snails, and Bro Safari, there is sure to be a new experience in this very unique location.',
         softWrap: true,
         style: TextStyle(
           color: Colors.red[50],
@@ -83,20 +80,30 @@ class _HomeState extends State<AboutUs> {
     );
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Elan Savannah',
+          style: TextStyle(fontFamily: 'Permanent Marker'),
+        ),
+      ),
       body: ListView(
         children: [
           Image.asset(
-            'images/lzmgroupphoto.jpg',
+            'images/joebiden1.jpg',
             width: 600,
             height: 240,
             fit: BoxFit.cover,
           ),
           titleSection,
           buttonSection,
-          textSection,
+          Padding(
+            padding: const EdgeInsets.only(bottom: 100.0),
+            child: textSection,
+          ),
         ],
       ),
-      
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: new CommonFAB(),
     );
   }
 }

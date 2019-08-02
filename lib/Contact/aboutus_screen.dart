@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
-class SavJazzInfo extends StatefulWidget {
+import 'package:layout_practice/Services/map_screen.dart';
+class AboutUs extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return _HomeState();
   }
 }
 
-class _HomeState extends State<SavJazzInfo> {
+class _HomeState extends State<AboutUs> {
   @override
   Widget build(BuildContext context) {
     Widget titleSection = Container(
@@ -21,7 +22,7 @@ class _HomeState extends State<SavJazzInfo> {
                 Container(
                   padding: const EdgeInsets.only(bottom: 8),
                   child: Text(
-                    'Savannah Jazz Festival',
+                    'SilverSmith Productions',
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Colors.blue[300]),
                   ),
@@ -45,9 +46,25 @@ class _HomeState extends State<SavJazzInfo> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildButtonColumn(color, Icons.call, 'CALL'),
-          _buildButtonColumn(color, Icons.near_me, 'ROUTE'),
-          _buildButtonColumn(color, Icons.share, 'SHARE'),
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              splashColor: Colors.blue,
+              child: _buildButtonColumn(color, Icons.call, 'CALL'))),
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (BuildContext context) => MapScreen(32.0809, -81.0912)));
+          },
+              splashColor: Colors.blue,
+              child: _buildButtonColumn(color, Icons.near_me, 'ROUTE'))),
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              splashColor: Colors.blue,
+              child: _buildButtonColumn(color, Icons.share, 'SHARE'))),
         ],
       ),
       color: Colors.grey[850],
@@ -66,16 +83,10 @@ class _HomeState extends State<SavJazzInfo> {
     );
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Savannah Jazz Fest',
-          style: TextStyle(fontFamily: 'Permanent Marker'),
-        ),
-      ),
       body: ListView(
         children: [
           Image.asset(
-            'images/savannahjazzfest.jpg',
+            'images/lzmgroupphoto.jpg',
             width: 600,
             height: 240,
             fit: BoxFit.cover,
@@ -85,21 +96,7 @@ class _HomeState extends State<SavJazzInfo> {
           textSection,
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0, // this will be set when a new tab is tapped
-        items: [
-          BottomNavigationBarItem(
-            icon: new Icon(Icons.home),
-            title: new Text('Home'),
-          ),
-          BottomNavigationBarItem(
-            icon: new Icon(Icons.mail),
-            title: new Text('Messages'),
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.contacts), title: Text('About Us'))
-        ],
-      ),
+      
     );
   }
 }

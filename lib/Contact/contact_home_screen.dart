@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:layout_practice/aboutus_screen.dart';
-import 'package:layout_practice/contactform_screen.dart';
+import 'package:layout_practice/Contact/aboutus_screen.dart';
+import 'package:layout_practice/Contact/contactform_screen.dart';
 import 'package:layout_practice/welcome_screen.dart';
 
 class Contact extends StatefulWidget {
@@ -32,6 +32,8 @@ class _ContactState extends State<Contact> {
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped,
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.red[100],
         currentIndex: _currentIndex,
         items: [
           BottomNavigationBarItem(

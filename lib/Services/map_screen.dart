@@ -7,24 +7,32 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:layout_practice/welcome_screen.dart';
 
 class MapScreen extends StatefulWidget {
+MapScreen(this.lat, this.lon);
+
+  final double lat;
+  final double lon;
+
   @override
-  _MapState createState() => _MapState();
+  _MapState createState() => _MapState(lat, lon);
 }
 
 class _MapState extends State<MapScreen> {
+  _MapState(lat, lon);
+
+static double lat;
+static double lon;
+
   Completer<GoogleMapController> _controller = Completer();
   final Set<Marker> markers = {
     Marker(
       markerId: MarkerId('value'),
-      position: LatLng(32.0809, -81.0912),
+      position: LatLng(lat, lon),
       infoWindow: InfoWindow(
         title: 'SilverSmith Productions',
         snippet: 'Savannah, Georgia',
       ),
     ),
   };
-
-  static const LatLng _center = const LatLng(32.0809, -81.0912);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +46,7 @@ class _MapState extends State<MapScreen> {
       body: GoogleMap(
         onMapCreated: _onMapCreated,
         initialCameraPosition: CameraPosition(
-          target: _center,
+          target: LatLng(lat, lon),
           zoom: 11.0,
         ),
         markers: markers,
@@ -49,7 +57,7 @@ class _MapState extends State<MapScreen> {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 15.0),
         child: FloatingActionButton(
-          onPressed: _launchMaps,
+          onPressed: _launchMaps(lat, lon),
           tooltip: 'Contact Us!',
           child: Icon(Icons.directions),
           elevation: 10,
@@ -64,9 +72,9 @@ class _MapState extends State<MapScreen> {
     _controller.complete(controller);
   }
 
-  _launchMaps() async {
+  _launchMaps(lat, lon) async {
     const url =
-        "https://www.google.com/maps/search/?api=1&query_place_id=SAVANNAH_GA";
+        "https://www.google.com/maps/search/?api=1&query=lat,lon";
     if (await canLaunch(url)) {
       await launch(url);
     } else {

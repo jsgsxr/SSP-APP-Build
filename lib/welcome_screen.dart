@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:layout_practice/Services/map_screen.dart';
 
-import 'package:layout_practice/clients_screen.dart';
-import 'package:layout_practice/contact_home_screen.dart';
-import 'package:layout_practice/projects_screen.dart';
+import 'package:layout_practice/Clients/clients_screen.dart';
+import 'package:layout_practice/Contact/contact_home_screen.dart';
+import 'package:layout_practice/Projects/projects_screen.dart';
 
 class Welcome extends StatefulWidget {
   @override
@@ -42,20 +42,31 @@ class _HomeState extends State<Welcome> {
         WelcomeImages(),
       ]),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 15.0),
-        child: FloatingActionButton.extended(
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => Contact()));
-          },
-          tooltip: 'Contact Us!',
-          icon: Icon(Icons.email),
-          label: Text('Contact Us!'),
-          elevation: 10,
-          foregroundColor: Colors.red[50],
-          backgroundColor: Colors.blue[900],
-        ),
+      floatingActionButton: new CommonFAB(),
+    );
+  }
+}
+
+class CommonFAB extends StatelessWidget {
+  const CommonFAB({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 15.0),
+      child: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext context) => Contact()));
+        },
+        tooltip: 'Contact Us!',
+        icon: Icon(Icons.email),
+        label: Text('Contact Us!'),
+        elevation: 10,
+        foregroundColor: Colors.red[50],
+        backgroundColor: Colors.blue[900],
       ),
     );
   }
@@ -84,7 +95,7 @@ class AppDrawer extends StatelessWidget {
             child: Stack(children: <Widget>[
               Positioned(
                 bottom: 2,
-                right: 10,
+                right: 7,
                 child: Row(
                   children: [
                 Text('SilverSmith Productions',
@@ -111,7 +122,7 @@ class AppDrawer extends StatelessWidget {
             color: Colors.red[50],
           ),
           _navRouteBuilder(context, Icons.navigation, 
-          'Location', MapScreen()),
+          'Location', MapScreen(32.0809, -81.0912)),
         ],
       ),
     );

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:layout_practice/welcome_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class LzmInfo extends StatefulWidget {
+class BidenInfo extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return _HomeState();
   }
 }
 
-class _HomeState extends State<LzmInfo> {
+class _HomeState extends State<BidenInfo> {
   @override
   Widget build(BuildContext context) {
     Widget titleSection = Container(
@@ -21,12 +23,12 @@ class _HomeState extends State<LzmInfo> {
                 Container(
                   padding: const EdgeInsets.only(bottom: 8),
                   child: Text(
-                    'LZM',
+                    'Joe Biden 2016 Clinton Presidential Campaign',
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Colors.blue[300]),
                   ),
                 ),
-                Text('Chengdu, China',
+                Text('Southeastern United States',
                     style: TextStyle(
                       color: Colors.blue[600],
                     ))
@@ -45,8 +47,20 @@ class _HomeState extends State<LzmInfo> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildButtonColumn(color, Icons.language, 'VISIT'),
-          _buildButtonColumn(color, Icons.map, 'MAP'),
+          Material(
+            color: Colors.transparent,
+                      child: InkWell(
+              splashColor: Colors.blueAccent,
+              onTap: () {},
+              child: _buildButtonColumn(color, Icons.language, 'VISIT')),
+          ),
+          Material(
+            color: Colors.transparent,
+                      child: InkWell(
+              splashColor: Colors.blueAccent,
+              onTap: () {},
+              child: _buildButtonColumn(color, Icons.map, 'MAP')),
+          ),
           _buildButtonColumn(color, Icons.share, 'SHARE'),
         ],
       ),
@@ -56,7 +70,7 @@ class _HomeState extends State<LzmInfo> {
     Widget textSection = Container(
       padding: const EdgeInsets.all(32),
       child: Text(
-        'Ling Zhong Media is a Full Service production company, and creative marketing force. Leading the market with many new production techniques recently introduced in Chengdu.',
+        'During the 2016 Clinton Presidential Campaign, Vice President Biden joined the campaign to help push his party further into power. The production team, made up from a combination of two different companies and local union staff, became responsible for most everything involved with these events. From the press risers, audio broadcasts, staging, and even cutting the letters for his backdrop from plywood. The level of security clearances and attention to detail was exciting and unexpected. Definitely a career highlight for everyone involved.',
         softWrap: true,
         style: TextStyle(
           color: Colors.red[50],
@@ -68,24 +82,28 @@ class _HomeState extends State<LzmInfo> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'LZM',
+          'Joe Biden 2016',
           style: TextStyle(fontFamily: 'Permanent Marker'),
         ),
       ),
       body: ListView(
         children: [
           Image.asset(
-            'images/lzmgroupphoto.jpg',
+            'images/joebiden1.jpg',
             width: 600,
             height: 240,
             fit: BoxFit.cover,
           ),
           titleSection,
           buttonSection,
-          textSection,
+          Padding(
+            padding: const EdgeInsets.only(bottom: 100.0),
+            child: textSection,
+          ),
         ],
       ),
-      
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: new CommonFAB(),
     );
   }
 }

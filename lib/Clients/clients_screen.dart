@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:layout_practice/contact_home_screen.dart';
 import 'package:layout_practice/welcome_screen.dart';
 
 class Clients extends StatefulWidget {
@@ -39,21 +38,7 @@ class _ClientsState extends State<Clients> {
         WelcomeImages(),
       ]),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 15.0),
-        child: FloatingActionButton.extended(
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => Contact()));
-          },
-          tooltip: 'Contact Us!',
-          icon: Icon(Icons.email),
-          label: Text('Contact Us!'),
-          elevation: 10,
-          foregroundColor: Colors.red[50],
-          backgroundColor: Colors.blue[900],
-        ),
-      ),
+      floatingActionButton: new CommonFAB(),
     );
   }
 }

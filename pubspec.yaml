@@ -51,6 +51,10 @@ flutter:
     - images/savannahjazzfest.jpg
     - images/studioboard.jpg
     - images/thedooverscreenshot.png
+    - images/berniesanders1.jpg
+    - images/elansavannah1.jpg
+    - images/joebiden1.jpg
+    - images/lzmbuyerphoto.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:
