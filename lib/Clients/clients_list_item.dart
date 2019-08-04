@@ -16,12 +16,12 @@ class ClientsListItem extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        _buildProjectItemCard(context, route),
+        _buildClientItemCard(context, route),
       ],
     );
   }
 
-  _buildProjectItemCard(BuildContext context, Widget route) {
+  _buildClientItemCard(BuildContext context, Widget route) {
     return Material(
       color: Colors.transparent,
       child: InkWell(

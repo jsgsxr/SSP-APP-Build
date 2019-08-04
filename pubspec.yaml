@@ -55,6 +55,8 @@ flutter:
     - images/elansavannah1.jpg
     - images/joebiden1.jpg
     - images/lzmbuyerphoto.jpg
+    - images/infinitus1.jpg
+    - images/wsavgroup.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:
