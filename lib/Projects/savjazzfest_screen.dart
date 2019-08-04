@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:layout_practice/Services/map_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import 'package:layout_practice/welcome_screen.dart';
 
 class SavJazzInfo extends StatefulWidget {
@@ -46,9 +49,37 @@ class _HomeState extends State<SavJazzInfo> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildButtonColumn(color, Icons.language, 'VISIT'),
-          _buildButtonColumn(color, Icons.map, 'MAP'),
-          _buildButtonColumn(color, Icons.share, 'SHARE'),
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+                splashColor: Colors.blueAccent,
+                onTap: () async {
+                  const url = 'http://savannahjazzfest.com/';
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  } else {
+                    throw 'Could not launch $url';
+                  }
+                },
+                child: _buildButtonColumn(color, Icons.language, 'VISIT')),
+          ),
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+                splashColor: Colors.blueAccent,
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          MapScreen(32.067449,-81.096291, 'ForsythPark')));
+                },
+                child: _buildButtonColumn(color, Icons.map, 'MAP')),
+          ),
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+                splashColor: Colors.blueAccent,
+                child: _buildButtonColumn(color, Icons.share, 'SHARE')),
+          )
         ],
       ),
       color: Colors.grey[850],

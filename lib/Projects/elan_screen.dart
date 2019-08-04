@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:layout_practice/Services/map_screen.dart';
 import 'package:layout_practice/welcome_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -51,14 +52,23 @@ class _HomeState extends State<ElanInfo> {
             color: Colors.transparent,
             child: InkWell(
                 splashColor: Colors.blueAccent,
-                onTap: () {},
+                onTap: () async {
+                  const url = 'http://www.elansavannah.com/';
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  } else {
+                    throw 'Could not launch $url';
+                  }},
                 child: _buildButtonColumn(color, Icons.language, 'VISIT')),
           ),
           Material(
             color: Colors.transparent,
             child: InkWell(
                 splashColor: Colors.blueAccent,
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).push(
+            MaterialPageRoute(builder: (BuildContext context) => MapScreen(32.079090, -81.082740, 'ElanSavannah')));
+                },
                 child: _buildButtonColumn(color, Icons.map, 'MAP')),
           ),
           _buildButtonColumn(color, Icons.share, 'SHARE'),
@@ -89,7 +99,7 @@ class _HomeState extends State<ElanInfo> {
       body: ListView(
         children: [
           Image.asset(
-            'images/joebiden1.jpg',
+            'images/elansavannah1.jpg',
             width: 600,
             height: 240,
             fit: BoxFit.cover,

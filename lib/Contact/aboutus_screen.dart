@@ -56,7 +56,7 @@ class _HomeState extends State<AboutUs> {
             child: InkWell(
               onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => MapScreen(32.0809, -81.0912)));
+                builder: (BuildContext context) => MapScreen(32.0809, -81.0912, 'Savannah,GA')));
           },
               splashColor: Colors.blue,
               child: _buildButtonColumn(color, Icons.near_me, 'ROUTE'))),

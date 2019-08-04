@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:layout_practice/Services/map_screen.dart';
 import 'package:layout_practice/welcome_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -49,19 +50,35 @@ class _HomeState extends State<BidenInfo> {
         children: [
           Material(
             color: Colors.transparent,
-                      child: InkWell(
-              splashColor: Colors.blueAccent,
-              onTap: () {},
-              child: _buildButtonColumn(color, Icons.language, 'VISIT')),
+            child: InkWell(
+                splashColor: Colors.blueAccent,
+                onTap: () async {
+                  const url = 'https://joebiden.com';
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  } else {
+                    throw 'Could not launch $url';
+                  }
+                },
+                child: _buildButtonColumn(color, Icons.language, 'VISIT')),
           ),
           Material(
             color: Colors.transparent,
-                      child: InkWell(
-              splashColor: Colors.blueAccent,
-              onTap: () {},
-              child: _buildButtonColumn(color, Icons.map, 'MAP')),
+            child: InkWell(
+                splashColor: Colors.blueAccent,
+                onTap: () {
+                  Navigator.of(context).push(
+            MaterialPageRoute(builder: (BuildContext context) => MapScreen(38.897675, -77.036530, 'TheWhiteHouse')));
+                },
+                child: _buildButtonColumn(color, Icons.map, 'MAP')),
           ),
-          _buildButtonColumn(color, Icons.share, 'SHARE'),
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+                splashColor: Colors.blueAccent,
+                onTap: () {},
+                child: _buildButtonColumn(color, Icons.share, 'SHARE')),
+          ),
         ],
       ),
       color: Colors.grey[850],

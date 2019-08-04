@@ -122,7 +122,7 @@ class AppDrawer extends StatelessWidget {
             color: Colors.red[50],
           ),
           _navRouteBuilder(context, Icons.navigation, 
-          'Location', MapScreen(32.0809, -81.0912)),
+          'Location', MapScreen(32.0809, -81.0912, 'Savannah,GA')),
         ],
       ),
     );

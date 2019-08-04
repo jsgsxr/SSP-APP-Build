@@ -7,7 +7,6 @@ import 'package:layout_practice/Projects/projects_list_item.dart';
 import 'package:layout_practice/Projects/lzm_screen.dart';
 import 'package:layout_practice/Projects/savjazzfest_screen.dart';
 import 'package:layout_practice/welcome_screen.dart';
-import 'package:layout_practice/Contact/contact_home_screen.dart';
 
 class Projects extends StatefulWidget {
   @override
@@ -27,11 +26,14 @@ class _ProjectsState extends State<Projects> {
           style: TextStyle(fontFamily: 'Permanent Marker'),
         ),
       ),
-      body: ListView.builder(
-              itemCount: 4,
-              itemBuilder: (context, index) {
-                return _projectsList()[index];
-              }),
+      body: Padding(
+        padding: const EdgeInsets.only(bottom: 65.0),
+        child: ListView.builder(
+                itemCount: 4,
+                itemBuilder: (context, index) {
+                  return _projectsList()[index];
+                }),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: new CommonFAB(),
     );

@@ -4,40 +4,29 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'package:layout_practice/welcome_screen.dart';
-
 class MapScreen extends StatefulWidget {
-MapScreen(this.lat, this.lon);
-
   final double lat;
   final double lon;
+  final String location;
+
+  MapScreen(this.lat, this.lon, this.location);
 
   @override
-  _MapState createState() => _MapState(lat, lon);
+  _MapState createState() => _MapState(lat, lon, location);
 }
 
 class _MapState extends State<MapScreen> {
-  _MapState(lat, lon);
+  var lat;
+  var lon;
+  var location; 
 
-static double lat;
-static double lon;
+  _MapState(this.lat, this.lon, this.location);
 
   Completer<GoogleMapController> _controller = Completer();
-  final Set<Marker> markers = {
-    Marker(
-      markerId: MarkerId('value'),
-      position: LatLng(lat, lon),
-      infoWindow: InfoWindow(
-        title: 'SilverSmith Productions',
-        snippet: 'Savannah, Georgia',
-      ),
-    ),
-  };
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: new AppDrawer(),
       appBar: AppBar(
         backgroundColor: Colors.blue[900],
         title:
@@ -47,9 +36,9 @@ static double lon;
         onMapCreated: _onMapCreated,
         initialCameraPosition: CameraPosition(
           target: LatLng(lat, lon),
-          zoom: 11.0,
+          zoom: 15.0,
         ),
-        markers: markers,
+        // markers: _marker(),
         scrollGesturesEnabled: true,
         myLocationEnabled: true,
       ),
@@ -57,8 +46,8 @@ static double lon;
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 15.0),
         child: FloatingActionButton(
-          onPressed: _launchMaps(lat, lon),
-          tooltip: 'Contact Us!',
+          onPressed: _launchMaps,
+          tooltip: 'Route',
           child: Icon(Icons.directions),
           elevation: 10,
           foregroundColor: Colors.red[50],
@@ -68,13 +57,21 @@ static double lon;
     );
   }
 
+
+  // _marker() { Set<Marker> _ = {
+  //   new Marker(
+  //     markerId: MarkerId(location),
+  //     position: new LatLng(lat, lon),
+  //   ),
+  // };
+  // }
+
   void _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
   }
 
-  _launchMaps(lat, lon) async {
-    const url =
-        "https://www.google.com/maps/search/?api=1&query=lat,lon";
+  _launchMaps() async {
+    var url = "https://www.google.com/maps/search/?api=1&query=$location";
     if (await canLaunch(url)) {
       await launch(url);
     } else {

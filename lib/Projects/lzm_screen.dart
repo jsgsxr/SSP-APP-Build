@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:layout_practice/Services/map_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import 'package:layout_practice/welcome_screen.dart';
 
 class LzmInfo extends StatefulWidget {
@@ -46,9 +49,37 @@ class _HomeState extends State<LzmInfo> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildButtonColumn(color, Icons.language, 'VISIT'),
-          _buildButtonColumn(color, Icons.map, 'MAP'),
-          _buildButtonColumn(color, Icons.share, 'SHARE'),
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+                splashColor: Colors.blueAccent,
+                onTap: () async {
+                  const url = 'https://jsgsxr.github.io/silversmithproductions/projects.html';
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  } else {
+                    throw 'Could not launch $url';
+                  }
+                },
+                child: _buildButtonColumn(color, Icons.language, 'VISIT')),
+          ),
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+                splashColor: Colors.blueAccent,
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          MapScreen(30.671949, 104.068069, 'Chengdu,China')));
+                },
+                child: _buildButtonColumn(color, Icons.map, 'MAP')),
+          ),
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+                splashColor: Colors.blueAccent,
+                child: _buildButtonColumn(color, Icons.share, 'SHARE')),
+          )
         ],
       ),
       color: Colors.grey[850],
@@ -57,7 +88,7 @@ class _HomeState extends State<LzmInfo> {
     Widget textSection = Container(
       padding: const EdgeInsets.all(32),
       child: Text(
-        'Ling Zhong Culture Media is a Full Service production company, and creative marketing force. Leading the market with many new production techniques recently introduced in Chengdu.',
+        'Ling Zhong Culture Media is a Full Service production company, and creative marketing force, leading the market with many new production techniques recently introduced in Chengdu.',
         softWrap: true,
         style: TextStyle(
           color: Colors.red[50],
@@ -76,14 +107,17 @@ class _HomeState extends State<LzmInfo> {
       body: ListView(
         children: [
           Image.asset(
-            'images/lzmgroupphoto.jpg',
+            'images/lzmbuyerphoto.jpg',
             width: 600,
             height: 240,
             fit: BoxFit.cover,
           ),
           titleSection,
           buttonSection,
-          textSection,
+          Padding(
+            padding: const EdgeInsets.only(bottom: 100.0),
+            child: textSection,
+          ),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
