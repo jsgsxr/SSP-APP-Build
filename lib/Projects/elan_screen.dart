@@ -71,7 +71,7 @@ class _HomeState extends State<ElanInfo> {
                 },
                 child: _buildButtonColumn(color, Icons.map, 'MAP')),
           ),
-          _buildButtonColumn(color, Icons.share, 'SHARE'),
+          
         ],
       ),
       color: Colors.grey[850],

@@ -73,13 +73,7 @@ class _HomeState extends State<BernieInfo> {
                 },
                 child: _buildButtonColumn(color, Icons.map, 'MAP')),
           ),
-          Material(
-              color: Colors.transparent,
-              child: InkWell(
-                splashColor: Colors.blueAccent,
-                onTap: () {},
-                child: _buildButtonColumn(color, Icons.share, 'SHARE'),
-              ))
+          
         ],
       ),
       color: Colors.grey[850],

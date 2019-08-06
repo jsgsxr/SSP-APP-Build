@@ -74,12 +74,7 @@ class _HomeState extends State<SavJazzInfo> {
                 },
                 child: _buildButtonColumn(color, Icons.map, 'MAP')),
           ),
-          Material(
-            color: Colors.transparent,
-            child: InkWell(
-                splashColor: Colors.blueAccent,
-                child: _buildButtonColumn(color, Icons.share, 'SHARE')),
-          )
+          
         ],
       ),
       color: Colors.grey[850],
