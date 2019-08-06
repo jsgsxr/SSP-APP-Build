@@ -58,7 +58,8 @@ class _HomeState extends State<BernieInfo> {
                     await launch(url);
                   } else {
                     throw 'Could not launch $url';
-                  }},
+                  }
+                },
                 child: _buildButtonColumn(color, Icons.language, 'VISIT')),
           ),
           Material(
@@ -66,12 +67,19 @@ class _HomeState extends State<BernieInfo> {
             child: InkWell(
                 splashColor: Colors.blueAccent,
                 onTap: () {
-                  Navigator.of(context).push(
-            MaterialPageRoute(builder: (BuildContext context) => MapScreen(35.227085, -80.843124, 'CharlotteNC')));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          MapScreen(35.227085, -80.843124, 'CharlotteNC')));
                 },
                 child: _buildButtonColumn(color, Icons.map, 'MAP')),
           ),
-          _buildButtonColumn(color, Icons.share, 'SHARE'),
+          Material(
+              color: Colors.transparent,
+              child: InkWell(
+                splashColor: Colors.blueAccent,
+                onTap: () {},
+                child: _buildButtonColumn(color, Icons.share, 'SHARE'),
+              ))
         ],
       ),
       color: Colors.grey[850],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:layout_practice/Services/map_screen.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:layout_practice/Clients/clients_screen.dart';
 import 'package:layout_practice/Contact/contact_home_screen.dart';
@@ -21,13 +22,12 @@ class _HomeState extends State<Welcome> {
         backgroundColor: Colors.blue[900],
         title: Text(
           "SilverSmith Productions",
-          style: TextStyle(fontFamily: 'Permanent Marker',
-          fontSize: 15),
+          style: TextStyle(fontFamily: 'Permanent Marker', fontSize: 15),
         ),
       ),
       body: ListView(children: [
         Container(
-          padding: EdgeInsets.only(top: 30, bottom: 18),
+          padding: EdgeInsets.only(top: 20, bottom: 20),
           child: Text(
             'Sound, Lights, Video, and More!',
             textAlign: TextAlign.center,
@@ -58,8 +58,8 @@ class CommonFAB extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 15.0),
       child: FloatingActionButton.extended(
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (BuildContext context) => Contact()));
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (BuildContext context) => Contact()));
         },
         tooltip: 'Contact Us!',
         icon: Icon(Icons.email),
@@ -73,7 +73,6 @@ class CommonFAB extends StatelessWidget {
 }
 
 class AppDrawer extends StatelessWidget {
- 
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -85,8 +84,9 @@ class AppDrawer extends StatelessWidget {
             margin: EdgeInsets.zero,
             padding: EdgeInsets.zero,
             decoration: BoxDecoration(
-              image: DecorationImage(fit: BoxFit.fill,
-              image: AssetImage('images/studioboard.jpg')),
+              image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: AssetImage('images/studioboard.jpg')),
               border: Border.all(
                 color: Colors.blueGrey[500],
               ),
@@ -96,16 +96,16 @@ class AppDrawer extends StatelessWidget {
               Positioned(
                 bottom: 2,
                 right: 7,
-                child: Row(
-                  children: [
-                Text('SilverSmith Productions',
-                style: TextStyle(
-                color: Colors.white,
-                fontFamily: 'Permanent Marker',
-                fontSize: 20,
-                ),
-                ),
-              ]),
+                child: Row(children: [
+                  Text(
+                    'SilverSmith Productions',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Permanent Marker',
+                      fontSize: 20,
+                    ),
+                  ),
+                ]),
               ),
             ]),
           ),
@@ -115,14 +115,13 @@ class AppDrawer extends StatelessWidget {
           ),
           _navRouteBuilder(
               context, Icons.library_music, 'Projects', Projects()),
-          _navRouteBuilder(
-              context, Icons.recent_actors, 'Clients', Clients()),
+          _navRouteBuilder(context, Icons.recent_actors, 'Clients', Clients()),
           _navRouteBuilder(context, Icons.contacts, 'Contact', Contact()),
           Divider(
             color: Colors.red[50],
           ),
-          _navRouteBuilder(context, Icons.navigation, 
-          'Location', MapScreen(32.0809, -81.0912, 'Savannah,GA')),
+          _navRouteBuilder(context, Icons.navigation, 'Location',
+              MapScreen(32.0809, -81.0912, 'Savannah,GA')),
         ],
       ),
     );
@@ -145,6 +144,14 @@ class AppDrawer extends StatelessWidget {
   }
 }
 
+final List<String> imgList = [
+        'images/doubleslogo.png',
+        'images/savannahjazzfest.jpg',
+        'images/thedooverscreenshot.png',
+        'images/wsavgroup.jpg',
+        'images/studioboard.jpg',
+        'images/capitalagroup.jpg'
+      ];
 class WelcomeImages extends StatefulWidget {
   @override
   _WelcomeImagesState createState() => _WelcomeImagesState();
@@ -153,32 +160,35 @@ class WelcomeImages extends StatefulWidget {
 class _WelcomeImagesState extends State<WelcomeImages> {
   @override
   Widget build(BuildContext context) {
-    return Column(children: <Widget>[
-      Padding(
-        padding: const EdgeInsets.only(top: 10.0, bottom: 20),
-        child: buildImage('images/doubleslogo.png'),
-      ),
-      Padding(
-        padding: const EdgeInsets.only(top: 10.0, bottom: 20),
-        child: buildImage('images/savannahjazzfest.jpg'),
-      ),
-      Padding(
-        padding: const EdgeInsets.only(top: 10.0, bottom: 20),
-        child: buildImage('images/capitalagroup.jpg'),
-      ),
-      Padding(
-        padding: const EdgeInsets.only(top: 10.0, bottom: 20),
-        child: buildImage('images/studioboard.jpg'),
-      ),
-    ]);
-  }
-
-  Image buildImage(String image) {
-    return Image.asset(
-      '$image',
-      width: 600,
-      height: 400,
-      fit: BoxFit.cover,
+    return CarouselSlider(
+      height: 500,
+      viewportFraction: .8,
+      initialPage: 0,
+      enableInfiniteScroll: true,
+      reverse: false,
+      autoPlay: true,
+      autoPlayInterval: Duration(seconds: 4),
+      autoPlayAnimationDuration: Duration(milliseconds: 800),
+      autoPlayCurve: Curves.easeInOut,
+      pauseAutoPlayOnTouch: Duration(seconds: 10),
+      enlargeCenterPage: true,
+      scrollDirection: Axis.horizontal,
+      items: imgList.map((img) {
+        return Builder(
+          builder: (BuildContext context) {
+            return Container(
+              width: MediaQuery.of(context).size.width,
+              margin: EdgeInsets.symmetric(horizontal: 5),
+              decoration: BoxDecoration(color: Colors.blueGrey[800]),
+              child: Image.asset(
+                img,
+                fit: BoxFit.cover,
+                width: 600,
+              ),
+            );
+          },
+        );
+      }).toList(),
     );
   }
 }

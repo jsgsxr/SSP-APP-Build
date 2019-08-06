@@ -71,7 +71,13 @@ class _HomeState extends State<WSAVInfo> {
                 },
                 child: _buildButtonColumn(color, Icons.map, 'MAP')),
           ),
-          _buildButtonColumn(color, Icons.share, 'SHARE'),
+          Material(
+              color: Colors.transparent,
+              child: InkWell(
+                splashColor: Colors.blueAccent,
+                onTap: () {},
+                child: _buildButtonColumn(color, Icons.share, 'SHARE'),
+              ))
         ],
       ),
       color: Colors.grey[850],

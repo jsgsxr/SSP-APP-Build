@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'package:layout_practice/Services/contact.dart';
+import 'package:layout_practice/Services/mailerapp.dart';
 
 DateTime convertToDate(String input) {
   try {
@@ -206,27 +206,18 @@ class _ContactFormState extends State<ContactForm> {
 
   void _submitForm() {
     final FormState form = _formKey.currentState;
-    String body = nameController.text + emailController.text + phoneController.text + companyController.text + positionController.text + dateController.text + messageController.text;
+    final String body = 'Name: ' + nameController.text + 'Email: ' + emailController.text + 'Phone: ' + phoneController.text + 'Company: ' + companyController.text + 'Position: ' + positionController.text + 'Date: ' + dateController.text + 'Message: ' + messageController.text;
 
     if (!form.validate()) {
       showMessage('Form is not valid!  Please review and correct.');
     } else {
-      showMessage('Thanks! We will contact you shortly!');
       form.save();
-      _launchURL('jsgsxr@me.com', 'You have a new customer!', body);
+      EmailApp.sendEmail('jsgsxr@me.com', 'You have a new customer!', body);
+      showMessage('Thanks! We will contact you shortly!');
 
       print('Form save called, newContact is now up to date...');
     }
-  }
-
-  _launchURL(String email, String subject, String body) async {
-    var url = 'mailto:$email?subject=$subject&body=$body';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
+  } 
 }
 
 class TextFieldInput extends StatelessWidget {
