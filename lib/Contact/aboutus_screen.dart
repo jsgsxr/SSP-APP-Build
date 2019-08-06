@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:layout_practice/Services/map_screen.dart';
+import 'package:share/share.dart';
 class AboutUs extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -64,6 +65,10 @@ class _HomeState extends State<AboutUs> {
             color: Colors.transparent,
             child: InkWell(
               splashColor: Colors.blue,
+              onTap: () {
+                final RenderBox box = context.findRenderObject();
+                Share.image(path: 'images/lzmgroupphoto.jpg', title: 'See what SilverSmith Productions is doing lately!', text: 'I\'m using the new SSP APP to support SilverSmith Productions!', mimeType: ShareType.TYPE_IMAGE).share(sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
+              },
               child: _buildButtonColumn(color, Icons.share, 'SHARE'))),
         ],
       ),
