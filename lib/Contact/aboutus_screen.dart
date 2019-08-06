@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:esys_flutter_share/esys_flutter_share.dart';
+import 'package:flutter/services.dart';
 
 import 'package:layout_practice/Services/map_screen.dart';
-import 'package:share/share.dart';
+
 class AboutUs extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -41,6 +43,18 @@ class _HomeState extends State<AboutUs> {
       color: Colors.grey[850],
     );
 
+    Future<void> shareImage() async {
+      try {
+        final ByteData bytes =
+            await rootBundle.load('images/lzmgroupphoto.jpg');
+        await Share.file(
+            'esys image', 'esys.jpg', bytes.buffer.asUint8List(), 'image/jpg',
+            text: 'See what SilverSmith Productions is doing lately!');
+      } catch (e) {
+        print('error: $e');
+      }
+    }
+
     Color color = Theme.of(context).primaryColor;
 
     Widget buttonSection = Container(
@@ -48,28 +62,26 @@ class _HomeState extends State<AboutUs> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Material(
-            color: Colors.transparent,
-            child: InkWell(
-              splashColor: Colors.blue,
-              child: _buildButtonColumn(color, Icons.call, 'CALL'))),
+              color: Colors.transparent,
+              child: InkWell(
+                  splashColor: Colors.blue,
+                  child: _buildButtonColumn(color, Icons.call, 'CALL'))),
           Material(
-            color: Colors.transparent,
-            child: InkWell(
-              onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => MapScreen(32.0809, -81.0912, 'Savannah,GA')));
-          },
-              splashColor: Colors.blue,
-              child: _buildButtonColumn(color, Icons.near_me, 'ROUTE'))),
+              color: Colors.transparent,
+              child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            MapScreen(32.0809, -81.0912, 'Savannah,GA')));
+                  },
+                  splashColor: Colors.blue,
+                  child: _buildButtonColumn(color, Icons.near_me, 'ROUTE'))),
           Material(
-            color: Colors.transparent,
-            child: InkWell(
-              splashColor: Colors.blue,
-              onTap: () {
-                final RenderBox box = context.findRenderObject();
-                Share.image(path: 'images/lzmgroupphoto.jpg', title: 'See what SilverSmith Productions is doing lately!', text: 'I\'m using the new SSP APP to support SilverSmith Productions!', mimeType: ShareType.TYPE_IMAGE).share(sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
-              },
-              child: _buildButtonColumn(color, Icons.share, 'SHARE'))),
+              color: Colors.transparent,
+              child: InkWell(
+                  splashColor: Colors.blue,
+                  onTap: () async => await shareImage(),
+                  child: _buildButtonColumn(color, Icons.share, 'SHARE'))),
         ],
       ),
       color: Colors.grey[850],
@@ -101,7 +113,6 @@ class _HomeState extends State<AboutUs> {
           textSection,
         ],
       ),
-      
     );
   }
 }

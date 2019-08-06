@@ -38,7 +38,7 @@ class _MapState extends State<MapScreen> {
           target: LatLng(lat, lon),
           zoom: 15.0,
         ),
-        // markers: _marker(),
+        markers: _marker(),
         scrollGesturesEnabled: true,
         myLocationEnabled: true,
       ),
@@ -58,13 +58,13 @@ class _MapState extends State<MapScreen> {
   }
 
 
-  // _marker() { Set<Marker> _ = {
-  //   new Marker(
-  //     markerId: MarkerId(location),
-  //     position: new LatLng(lat, lon),
-  //   ),
-  // };
-  // }
+  _marker() { Set<Marker> _ = {
+    new Marker(
+      markerId: MarkerId(location),
+      position: LatLng(lat, lon),
+    ),
+  };
+  }
 
   void _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
