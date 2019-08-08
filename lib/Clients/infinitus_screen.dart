@@ -80,7 +80,7 @@ class _HomeState extends State<InfinitusInfo> {
     Widget textSection = Container(
       padding: const EdgeInsets.all(32),
       child: Text(
-        'Savannah\'s only Superlounge and EDM venue, with ground breaking technology, and consistently excellent service. From legends like Lil Jon, Waka Flocka, Snails, and Bro Safari, there is sure to be a new experience in this very unique location.',
+        'LKK Health Products Group (LKKHPG) is part of the century-old Lee Kum Kee Group. Headquartered in Hong Kong, LKKHPG is a large-scale enterprise specializing in R&D, production and sale of Chinese herbal health products. LKKHPG consists of 4 divisions with a total of over 3000 employees: Infinitus (China) Company Ltd, Infinitus (Hong Kong) Company Ltd, Infinitus International Company Ltd, and Infinitus (Malaysia) Sdn Bhd. The China division was established in Guangzhou in 1992 and has since then set up 36 branches, 28 service centers and nearly 5000 exclusive stores in Mainland China.',
         softWrap: true,
         style: TextStyle(
           color: Colors.red[50],

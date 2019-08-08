@@ -83,7 +83,7 @@ class _HomeState extends State<LzmInfo> {
     Widget textSection = Container(
       padding: const EdgeInsets.all(32),
       child: Text(
-        'Ling Zhong Culture Media is a Full Service production company, and creative marketing force, leading the market with many new production techniques recently introduced in Chengdu.',
+        'Ling Zhong Culture Media is a Full Service production company, and creative marketing force, leading the market with many new production techniques recently introduced in Chengdu. SilverSmith Productions helped create their Production Systems, including purchasing, maintenance, deployment, scheduling, and even working to create a production environment among their staff. Sharing years of knowledge, and systems to help make their love of technology show through in their professionalism in every aspect.',
         softWrap: true,
         style: TextStyle(
           color: Colors.red[50],

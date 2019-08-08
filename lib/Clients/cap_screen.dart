@@ -80,7 +80,7 @@ class _HomeState extends State<CAPInfo> {
     Widget textSection = Container(
       padding: const EdgeInsets.all(32),
       child: Text(
-        'Savannah\'s only Superlounge and EDM venue, with ground breaking technology, and consistently excellent service. From legends like Lil Jon, Waka Flocka, Snails, and Bro Safari, there is sure to be a new experience in this very unique location.',
+        'Capital A Productions continues to raise the bar since 2007, providing touring class Audio, Lighting and Staging services for special events in the Coastal Empire. Dedicated to the success of every customer, they deliver a flawless product and a customer experience that instills trust and confidence. They fully believe that long term relationships are the key to success and growth',
         softWrap: true,
         style: TextStyle(
           color: Colors.red[50],

@@ -82,7 +82,7 @@ class _HomeState extends State<BernieInfo> {
     Widget textSection = Container(
       padding: const EdgeInsets.all(32),
       child: Text(
-        'In a partnership with ACS from Charlotte, North Carolina,',
+        'In a partnership with ACS from Charlotte, North Carolina, the presidential campaign season of 2016 saw many campaign rallies coming through the southeast. Between many Republican and Democratic candidates, Bernie Sanders was one of the few that actually brought us home to Savannah for an amazing event in the Johnny Mercer Theatre. Among the many presidential events that were participated in during this time, Bernie was definitely one of the most interesting,',
         softWrap: true,
         style: TextStyle(
           color: Colors.red[50],

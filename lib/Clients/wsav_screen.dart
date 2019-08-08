@@ -80,7 +80,7 @@ class _HomeState extends State<WSAVInfo> {
     Widget textSection = Container(
       padding: const EdgeInsets.all(32),
       child: Text(
-        'Savannah\'s only Superlounge and EDM venue, with ground breaking technology, and consistently excellent service. From legends like Lil Jon, Waka Flocka, Snails, and Bro Safari, there is sure to be a new experience in this very unique location.',
+        'WSAV is the NBC & CW affiliate for Coastal Empire and the Lowcountry.  We signed on the air on February 1, 1956, and have faithfully served Savannah, Statesboro, Hilton Head and our many neighboring Georgia and South Carolina communities with the best in local news and entertainment. WSAV’s unique brand of On Your Side journalism has made it the area’s most critically and professionally acclaimed local news operation. Since 2012, WSAV has been recognized for superior journalism with 27 regional Edward R. Murrow Awards, 70 Georgia Association of Broadcasters Awards, 16 Georgia Association of Broadcasters Awards, a regional Emmy Award and a National Edward R. Murrow Award.',
         softWrap: true,
         style: TextStyle(
           color: Colors.red[50],
