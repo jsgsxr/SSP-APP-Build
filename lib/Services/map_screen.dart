@@ -12,15 +12,28 @@ class MapScreen extends StatefulWidget {
   MapScreen(this.lat, this.lon, this.location);
 
   @override
-  _MapState createState() => _MapState(lat, lon, location);
+  _MapState createState() => _MapState();
 }
 
 class _MapState extends State<MapScreen> {
-  var lat;
-  var lon;
-  var location; 
+  
 
-  _MapState(this.lat, this.lon, this.location);
+Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
+
+void _markers() {
+
+  final MarkerId markerId = MarkerId(widget.location);
+  final Marker marker = Marker(
+      markerId: markerId,
+      position: LatLng(widget.lat, widget.lon),
+      infoWindow: InfoWindow(title: widget.location)
+      );
+      setState(() {
+        markers[markerId] = marker;
+      }); 
+}
+
+  _MapState();
 
   Completer<GoogleMapController> _controller = Completer();
 
@@ -35,10 +48,10 @@ class _MapState extends State<MapScreen> {
       body: GoogleMap(
         onMapCreated: _onMapCreated,
         initialCameraPosition: CameraPosition(
-          target: LatLng(lat, lon),
+          target: LatLng(widget.lat, widget.lon),
           zoom: 15.0,
         ),
-        markers: _marker(),
+        markers: Set<Marker>.of(markers.values),
         scrollGesturesEnabled: true,
         myLocationEnabled: true,
       ),
@@ -57,21 +70,13 @@ class _MapState extends State<MapScreen> {
     );
   }
 
-
-  _marker() { Set<Marker> _ = {
-    new Marker(
-      markerId: MarkerId(location),
-      position: LatLng(lat, lon),
-    ),
-  };
-  }
-
   void _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
+    _markers();
   }
 
   _launchMaps() async {
-    var url = "https://www.google.com/maps/search/?api=1&query=$location";
+    var url = "https://www.google.com/maps/search/?api=1&query=${widget.location}";
     if (await canLaunch(url)) {
       await launch(url);
     } else {
